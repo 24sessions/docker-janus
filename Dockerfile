@@ -4,9 +4,6 @@ FROM ubuntu:16.04
 ENV DEPS_HOME="/root/janus"
 ENV SCRIPTS_PATH="/tmp/scripts"
 
-# use aarnet mirror for quicker building while developing
-RUN sed -i 's/archive.ubuntu.com/mirror.aarnet.edu.au\/pub\/ubuntu\/archive/g' /etc/apt/sources.list
-
 # install baseline package dependencies
 RUN apt-get -y update && apt-get install -y libmicrohttpd-dev \
   libjansson-dev \
@@ -30,10 +27,15 @@ RUN apt-get -y update && apt-get install -y libmicrohttpd-dev \
   cmake \
   wget \
   npm \
-  nano
+  nano \
+  libwebsockets-dev \
+  libsrtp-dev
 
 ADD scripts/bootstrap.sh $SCRIPTS_PATH/
 RUN $SCRIPTS_PATH/bootstrap.sh
+
+ADD scripts/usrsctp.sh $SCRIPTS_PATH/
+RUN $SCRIPTS_PATH/usrsctp.sh
 
 ENV JANUS_RELEASE="v0.1.2"
 ADD scripts/janus.sh $SCRIPTS_PATH/
@@ -43,8 +45,6 @@ RUN touch /var/log/meetecho
 
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
-
-COPY evapi.js /evapi.js
 
 COPY run.sh /run.sh
 RUN chmod a+rx /run.sh
@@ -56,5 +56,7 @@ EXPOSE 8889
 EXPOSE 8000
 EXPOSE 7088
 EXPOSE 7089
+EXPOSE 8188
+EXPOSE 8989
 
 ENTRYPOINT ["/run.sh"]

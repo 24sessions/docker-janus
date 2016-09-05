@@ -23,8 +23,7 @@ git checkout event-handlers
 
 ./autogen.sh
 
-# TODO: fix websocket support as it should work
-./configure --prefix=$DEPS_HOME --disable-websockets --disable-rabbitmq --disable-docs --disable-data-channels
+./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs --disable-plugin-audiobridge --disable-plugin-echotest --disable-plugin-recordplay --disable-plugin-sip --disable-plugin-videocall --disable-plugin-voicemail
 make
 make install
 make configs
