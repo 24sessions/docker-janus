@@ -8,7 +8,15 @@ Images for this container are available at https://hub.docker.com/r/qxip/docker-
 The following command should provide a fully functional container w/ basic mapping
 ```
 docker run -tid \
--p 7889:7889 -p 7089:7089 -p 8089:8889 -p 7088:7088 -p 8088:8088 -p 8000:8000 \
+-p 7889:7889 -p 7089:7089 -p 443:8889 -p 7088:7088 -p 8088:8088 -p 8000:8000 \
 -p 8080:8080 -p 10000-10200:10000-10200 -p 8188:8188 -p 8989:8989 \
+-v /root/certs:/root/janus/certs \
+--net host \
 24sessions/docker-janus --name janus
+```
+
+To run with host network (for better network performance):
+```
+docker run -tid -v /root/certs:/root/janus/certs \ 
+--network="host" 24sessions/docker-janus --name janus
 ```

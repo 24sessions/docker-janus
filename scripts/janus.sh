@@ -23,7 +23,7 @@ git checkout event-handlers
 
 ./autogen.sh
 
-./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs --disable-plugin-audiobridge --disable-plugin-echotest --disable-plugin-recordplay --disable-plugin-sip --disable-plugin-videocall --disable-plugin-voicemail
+./configure --prefix=$DEPS_HOME --disable-rabbitmq --disable-docs --disable-plugin-audiobridge --disable-plugin-echotest --disable-plugin-recordplay --disable-plugin-sip --disable-plugin-videocall --disable-plugin-voicemail --disable-mqtt
 make
 make install
 make configs
