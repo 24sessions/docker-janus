@@ -16,7 +16,13 @@ docker run -tid \
 ```
 
 To run with host network (for better network performance):
+For docker 1.12+:
 ```
 docker run -tid -v /root/certs:/root/janus/certs \ 
 --network="host" 24sessions/docker-janus --name janus
+```
+For docker 1.11:
+```
+docker run -tid -v /root/certs:/root/janus/certs \ 
+--net="host" 24sessions/docker-janus --name janus
 ```
